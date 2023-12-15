@@ -21,11 +21,12 @@ def read_input(file):
     Arguments:
     file -- Path location of the file 
     """
-
+    total_game = 0
     file = open(file, 'r')
     for line in file.readlines():
-        format_line(line.strip())
-
+        result = format_line(line.strip())
+        total_game += result
+    print(total_game)
 
 def format_line(line):
     """
@@ -38,8 +39,8 @@ def format_line(line):
     game_string = line_text[0].split()
     game_id = game_string[1]
     game_results = line_text[1].split(';')
-    check_game(int(game_id), game_results)
-    print(LIST_OF_POSSIBLE_GAMES)
+    result = check_game(int(game_id), game_results)
+    return result
 
 
 def check_game(game_id, game_results):
@@ -60,14 +61,17 @@ def check_game(game_id, game_results):
                 result = game_is_possible(cube_color, cube_number)
                 if result == False:
                     print('game {0} could not be possible'.format(game_id))
+                    return 0
                     break_main_loop = True
                     break
-                if result == True:
-                    if game_id in LIST_OF_POSSIBLE_GAMES:
-                        pass
-                    else:
-                        LIST_OF_POSSIBLE_GAMES.append(game_id)
+    return game_id
+
+                        
 def game_is_possible(color, number):
+    """
+    Return True if game is possible
+    """
+
     possible_games = {
         'red' : 12,
         'green' : 13,
@@ -81,11 +85,11 @@ def game_is_possible(color, number):
             return True
 
 
-LIST_OF_POSSIBLE_GAMES = []
-
 if __name__ == '__main__':
     try:
         file = sys.argv[1]
         read_input(file)
     except IndexError:
         print('Please provide the path of the input file')
+    except ValueError:
+        print('Your input file is invalid')
