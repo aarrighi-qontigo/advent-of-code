@@ -12,10 +12,7 @@ def process_line(line):
         elif not char.isnumeric():
             #do nothing.
             continue  
-    #sum the first number of the line and the last one
     sum_list = list_of_numbers[0] + list_of_numbers[-1]
-    #add to the variable that will send the calibration value
-    #sum += sum_list
     return int(sum_list)
 
 
@@ -38,9 +35,7 @@ def calibration_values(file):
 def sum_values(sum):
     sum_integers = 0
     for number in sum:
-        #input('Adding {0}'.format(number))
         sum_integers += int(number)
-        #print(sum_integers)
     print(sum_integers)
 
 def write_output(text, file='output.txt'):
